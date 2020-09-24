@@ -44,5 +44,10 @@
     "webpack-cli": "^3.3.11",
     "webpack-dev-server": "^3.11.0",
     "webpack-merge": "^5.1.4"
+  },
+  "dependencies": {
+    "@syncfusion/ej2-charts": "^18.2.58",
+    "@syncfusion/ej2-grids": "^18.2.59",
+    "chart.js": "^2.9.3"
   }
 }

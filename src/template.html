@@ -11,7 +11,52 @@
 </head>
 
 <body>
-    <p>Hello World</p>
+  <div class="app-wrapper">
+    <form action="" class="form" autocomplete="off">
+      <div class="form__wrapper">
+        <input type="text" class="form__city" id="city" required autocomplete="off">
+        <label for="city" class="form__label">
+          <span class="form__label-city">City</span>
+        </label>
+      </div>
+      <button class="form__btn">Search</button>
+    </form>
+    <div class="weather">
+      <div class="location">
+        <span class="icon"></span>
+        <span class="location__name"></span>
+      </div>
+    <span class="weather__date"></span>
+    <div class="temperature">
+      <span class="temperature__icon"></span>
+      <span class="temperature__info"></span>
+      <span class="temperature__degree"></span>
+    </div>
+    <span class="weather__info"></span>
+    </div>
+    <div class="weather-hour">
+      <ul class="hour-list">
+        <li class="hour-list__item">
+          <span class="hour-list__time"></span>
+          <div class="hour-list__weather-info">
+            <span class="hour-list__icon"></span>
+          </div>
+          <span class="hour-list__temperature"></span>
+        </li>
+      </ul>
+    </div>
+    <div class="weather-rain">
+      <div id="chart"></div>
+      <!-- <canvas id="myChart"></canvas> -->
+    </div>
+    <nav class="nav">
+      <ul class="nav__list">
+        <li class="nav__item"></li>
+        <li class="nav__item"></li>
+        <li class="nav__item"></li>
+      </ul>
+    </nav>
+  </div>
 </body>
 
 </html>

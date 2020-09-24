@@ -43,8 +43,8 @@ module.exports = {
     new CopyWebpackPlugin({
       patterns: [
         {
-          from: paths.static,
-          to: 'assets',
+          from: 'src/images',
+          to: 'images',
           globOptions: {
             ignore: ['*.DS_Store'],
           },

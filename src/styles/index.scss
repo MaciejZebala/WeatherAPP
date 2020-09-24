@@ -4,6 +4,9 @@
 }
 
 @import 'variables';
+@import 'wrapper';
+@import 'weatherInfo';
+@import 'form';
 
 *{
   margin: 0;
@@ -14,3 +17,4 @@
 html {
   font-family: $font-family;
 }
+
