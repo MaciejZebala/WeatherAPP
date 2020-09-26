@@ -9,6 +9,7 @@
 @import 'wrapper';
 @import 'weatherInfo';
 @import 'form';
+@import 'weatherHourly';
 
 *{
   margin: 0;
@@ -18,5 +19,6 @@
 
 html {
   font-family: $font-family;
+  min-height: 100vh;
 }
 
