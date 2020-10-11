@@ -27,8 +27,15 @@
     "cross-env": "^7.0.2",
     "css-loader": "^4.3.0",
     "cssnano": "^4.1.10",
-    "eslint": "^7.8.1",
+    "eslint": "^7.2.0",
+    "eslint-config-airbnb": "^18.2.0",
+    "eslint-config-prettier": "^6.12.0",
     "eslint-loader": "^4.0.0",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-jsx-a11y": "^6.3.1",
+    "eslint-plugin-prettier": "^3.1.4",
+    "eslint-plugin-react": "^7.21.4",
+    "eslint-plugin-react-hooks": "^4.0.0",
     "file-loader": "^6.0.0",
     "html-webpack-plugin": "^4.0.4",
     "mini-css-extract-plugin": "^0.11.1",
@@ -48,6 +55,7 @@
   "dependencies": {
     "@syncfusion/ej2-charts": "^18.2.58",
     "@syncfusion/ej2-grids": "^18.2.59",
-    "chart.js": "^2.9.3"
+    "chart.js": "^2.9.3",
+    "regenerator-runtime": "^0.13.7"
   }
 }

@@ -1,7 +1,7 @@
-const paths = require('./paths')
-const { CleanWebpackPlugin } = require('clean-webpack-plugin')
-const CopyWebpackPlugin = require('copy-webpack-plugin')
-const HtmlWebpackPlugin = require('html-webpack-plugin')
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const paths = require('./paths');
 
 module.exports = {
   /**
@@ -9,7 +9,7 @@ module.exports = {
    *
    * The first place Webpack looks to start building the bundle.
    */
-  entry: [paths.src + '/index.js'],
+  entry: [`${paths.src}/index.js`],
 
   /**
    * Output
@@ -59,8 +59,8 @@ module.exports = {
      */
     new HtmlWebpackPlugin({
       title: 'WeatherAPP',
-      favicon: paths.static + '/sun.png',
-      template: paths.src + '/template.html', // template file
+      favicon: `${paths.static}/sun.png`,
+      template: `${paths.src}/template.html`, // template file
       filename: 'index.html', // output file
     }),
   ],
@@ -92,7 +92,10 @@ module.exports = {
         test: /\.(scss|css)$/,
         use: [
           'style-loader',
-          { loader: 'css-loader', options: { sourceMap: true, importLoaders: 1 } },
+          {
+            loader: 'css-loader',
+            options: { sourceMap: true, importLoaders: 1 },
+          },
           { loader: 'postcss-loader', options: { sourceMap: true } },
           { loader: 'sass-loader', options: { sourceMap: true } },
         ],
@@ -128,4 +131,4 @@ module.exports = {
       },
     ],
   },
-}
+};
