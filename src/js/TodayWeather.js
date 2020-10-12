@@ -6,6 +6,22 @@ export default class TodayWeather {
     this.geo = navigator.geolocation;
 
     this.cityName = document.querySelector('.location__name');
+    this.date = document.querySelector('.weather__date');
+    this.temperature = document.querySelector('.temperature__info');
+    this.weatherInfo = document.querySelector('.weather__info');
+    this.temperatureIcon = document.querySelector(
+      '.temperature__icon',
+    );
+    this.uv = document.querySelector('.weather-details__data--uv');
+    this.sunrise = document.querySelector(
+      '.weather-details__data--sunrise',
+    );
+    this.sunset = document.querySelector(
+      '.weather-details__data--sunset',
+    );
+    this.humidity = document.querySelector(
+      '.weather-details__data--humidity',
+    );
   }
 
   getCoordinates() {
@@ -33,9 +49,31 @@ export default class TodayWeather {
         sunrise: data.data[0].sunrise,
         sunset: data.data[0].sunset,
         humidity: data.data[0].rh,
+        icon: data.data[0].weather.icon,
+        iconDesc: data.data[0].weather.description,
       };
+      this.displayData(dataObj);
     } catch (err) {
       alert('No Data');
     }
+  }
+
+  displayData(dataObj) {
+    this.cityName.textContent = dataObj.city;
+    this.date.textContent = dataObj.dateTime.slice(
+      0,
+      dataObj.dateTime.indexOf(':'),
+    );
+    this.temperature.textContent = dataObj.temp;
+    this.weatherInfo.textContent = dataObj.iconDesc;
+    this.uv.textContent = Math.floor(dataObj.uv);
+    this.sunrise.textContent = dataObj.sunrise;
+    this.sunset.textContent = dataObj.sunset;
+    this.humidity.textContent = Math.floor(dataObj.humidity);
+    this.temperatureIcon.setAttribute(
+      'src',
+      `./images/${dataObj.icon}.png`,
+    );
+    this.temperatureIcon.setAttribute('alt', dataObj.iconDesc);
   }
 }
