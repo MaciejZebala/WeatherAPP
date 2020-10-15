@@ -3,8 +3,6 @@ export default class TodayWeather {
     this.url = 'https://api.weatherbit.io/v2.0/current?';
     this.apiKey = '823bb590e7d943b7af67eb1635a03f0f';
 
-    this.geo = navigator.geolocation;
-
     this.cityName = document.querySelector('.location__name');
     this.date = document.querySelector('.weather__date');
     this.temperature = document.querySelector('.temperature__info');
@@ -26,18 +24,6 @@ export default class TodayWeather {
     this.formCityName = document.querySelector('.form__city');
     this.formBtn = document.querySelector('.form__btn');
     this.form = document.querySelector('.form');
-  }
-
-  getCoordinates() {
-    if (this.geo) {
-      this.geo.getCurrentPosition((location) => {
-        this.lat = location.coords.latitude;
-        this.lon = location.coords.longitude;
-        this.getCurrentWeather(this.lat, this.lon);
-      });
-    } else {
-      alert('No Data');
-    }
   }
 
   async getCurrentWeather(lat, lon) {
@@ -80,7 +66,7 @@ export default class TodayWeather {
       };
       this.displayData(dataByCityObj);
     } catch (err) {
-      alert('sdsada');
+      alert('No Data');
     }
   }
 

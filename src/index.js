@@ -9,13 +9,19 @@ import Slider from './js/Slider';
 
 import Navigation from './js/Navigation';
 
+import './js/WeatherByHour';
+
+import GetCoordinates from './js/GetCoordinates';
+
 const todayWeather = new TodayWeather();
+
+const getCoordinates = new GetCoordinates();
 
 const slider = new Slider();
 
 const nav = new Navigation();
 
-todayWeather.getCoordinates();
+getCoordinates.getCoordinates();
 todayWeather.render();
 
 nav.changeRing();
