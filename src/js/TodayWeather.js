@@ -22,6 +22,10 @@ export default class TodayWeather {
     this.humidity = document.querySelector(
       '.weather-details__data--humidity',
     );
+
+    this.formCityName = document.querySelector('.form__city');
+    this.formBtn = document.querySelector('.form__btn');
+    this.form = document.querySelector('.form');
   }
 
   getCoordinates() {
@@ -58,6 +62,28 @@ export default class TodayWeather {
     }
   }
 
+  async getCurrentWeatherByCityName(cityName) {
+    try {
+      const dataByCity = await fetch(
+        `${this.url}city=${cityName}&key=${this.apiKey}`,
+      ).then((res) => res.json());
+      const dataByCityObj = await {
+        city: dataByCity.data[0].city_name,
+        temp: dataByCity.data[0].temp,
+        dateTime: dataByCity.data[0].datetime,
+        uv: dataByCity.data[0].uv,
+        sunrise: dataByCity.data[0].sunrise,
+        sunset: dataByCity.data[0].sunset,
+        humidity: dataByCity.data[0].rh,
+        icon: dataByCity.data[0].weather.icon,
+        iconDesc: dataByCity.data[0].weather.description,
+      };
+      this.displayData(dataByCityObj);
+    } catch (err) {
+      alert('sdsada');
+    }
+  }
+
   displayData(dataObj) {
     this.cityName.textContent = dataObj.city;
     this.date.textContent = dataObj.dateTime.slice(
@@ -75,5 +101,13 @@ export default class TodayWeather {
       `./images/${dataObj.icon}.png`,
     );
     this.temperatureIcon.setAttribute('alt', dataObj.iconDesc);
+  }
+
+  render() {
+    this.form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      this.getCurrentWeatherByCityName(this.formCityName.value);
+      this.formCityName.value = '';
+    });
   }
 }

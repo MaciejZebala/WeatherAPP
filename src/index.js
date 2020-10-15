@@ -16,6 +16,7 @@ const slider = new Slider();
 const nav = new Navigation();
 
 todayWeather.getCoordinates();
+todayWeather.render();
 
 nav.changeRing();
 
