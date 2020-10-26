@@ -15,6 +15,8 @@ import GetCoordinates from './js/GetCoordinates';
 
 const todayWeather = new TodayWeather();
 
+// const weatherByHour = new WeatherByHour();
+
 const getCoordinates = new GetCoordinates();
 
 const slider = new Slider();

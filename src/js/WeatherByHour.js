@@ -8,6 +8,9 @@ export default class WeatherByHour {
     this.temp = document.querySelector('hour-list__temperature');
 
     this.list = document.querySelector('.hour-list');
+
+    this.form = document.querySelector('.form');
+    this.formCityName = document.querySelector('.form__city');
   }
 
   async getWeatherByHour(lat, lon) {
@@ -17,6 +20,18 @@ export default class WeatherByHour {
       ).then((res) => res.json());
       const dataObj = data.data;
       this.displayResults(dataObj);
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  async getWeatherByHourCityName(cityName) {
+    try {
+      const dataByCity = await fetch(
+        `${this.api}city=${cityName}&key=${this.apiKey}&hours=24`,
+      ).then((res) => res.json());
+      const dataObjByCity = dataByCity.data;
+      this.displayResults(dataObjByCity);
     } catch (err) {
       console.log(err);
     }
@@ -51,8 +66,10 @@ export default class WeatherByHour {
   }
 
   displayResults(dataObj) {
-    for (let i = 0; i < dataObj.length / 3; i++) {
-      this.addStructure(dataObj);
+    if (document.querySelectorAll('.hour-list__view').length <= 7) {
+      for (let i = 0; i < dataObj.length / 3; i++) {
+        this.addStructure(dataObj);
+      }
     }
 
     this.timeAll = document.querySelectorAll('.hour-list__time');
@@ -71,16 +88,5 @@ export default class WeatherByHour {
       );
       this.tempAll[index].textContent = `${temp}°`;
     });
-    // for (let i = 0; i < dataObj.length; i++) {
-    //   this.timeAll[i].textContent = dataObj[i].timestamp_local.slice(
-    //     dataObj[i].timestamp_local.indexOf('T') + 1,
-    //     dataObj[i].timestamp_local.length - 3,
-    //   );
-    //   this.imgAll[i].setAttribute(
-    //     'src',
-    //     `./images/${dataObj[i].weather.icon}.png`,
-    //   );
-    //   this.tempAll[i].textContent = `${dataObj[i].temp}°`;
-    // }
   }
 }

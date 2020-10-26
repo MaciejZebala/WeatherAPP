@@ -1,3 +1,5 @@
+import WeatherByHour from './WeatherByHour';
+
 export default class TodayWeather {
   constructor() {
     this.url = 'https://api.weatherbit.io/v2.0/current?';
@@ -93,6 +95,8 @@ export default class TodayWeather {
     this.form.addEventListener('submit', (e) => {
       e.preventDefault();
       this.getCurrentWeatherByCityName(this.formCityName.value);
+      const weatherByHour = new WeatherByHour();
+      weatherByHour.getWeatherByHourCityName(this.formCityName.value);
       this.formCityName.value = '';
     });
   }
