@@ -2,13 +2,13 @@ export default class Slider {
   constructor() {
     this.nextBtn = document.querySelector('.weather-hour__btn--next');
     this.backBtn = document.querySelector('.weather-hour__btn--back');
-    this.sliderSection = [
-      ...document.querySelectorAll('.hour-list__view'),
-    ];
     this.counter = 0;
   }
 
   moveToNext() {
+    this.sliderSection = [
+      ...document.querySelectorAll('.hour-list__view'),
+    ];
     this.counter++;
     this.sliderSection.forEach((e) => {
       e.style.transition = 'transform 0.5s ease-in-out';
@@ -25,6 +25,9 @@ export default class Slider {
   }
 
   moveToBack() {
+    this.sliderSection = [
+      ...document.querySelectorAll('.hour-list__view'),
+    ];
     this.counter--;
     this.sliderSection.forEach((e) => {
       e.style.transition = 'transform 0.5s ease-in-out';

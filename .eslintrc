@@ -12,6 +12,8 @@
       }],
       "no-plusplus": "off",
       "no-alert": "off",
+      // "camelcase" : [ { "properties": "never", "ignoreDestructuring": true }],
+      "camelcase": ["error",{ "ignoreDestructuring": true }],
       "import/no-extraneous-dependencies": ["error", { "devDependencies": true }]
   }
 }
