@@ -60,6 +60,7 @@
     "@syncfusion/ej2-grids": "^18.2.59",
     "chart.js": "^2.9.3",
     "google-maps": "^4.3.3",
+    "gsap": "^3.5.1",
     "regenerator-runtime": "^0.13.7"
   }
 }
