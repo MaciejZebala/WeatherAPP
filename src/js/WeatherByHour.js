@@ -2,8 +2,8 @@
 export default class WeatherByHour {
   constructor() {
     this.viewList = document.querySelector('.hour-list__view');
-    this.api = 'https://api.weatherbit.io/v2.0/forecast/hourly?';
-    this.apiKey = '823bb590e7d943b7af67eb1635a03f0f';
+    this.api = 'https://api.openweathermap.org/data/2.5/onecall?';
+    this.apiKey = 'cd885cd68629b84dd290fe69cb42faed';
 
     this.temp = document.querySelector('hour-list__temperature');
 
@@ -16,22 +16,20 @@ export default class WeatherByHour {
   async getWeatherByHour(lat, lon) {
     try {
       const data = await fetch(
-        `${this.api}lat=${lat}&lon=${lon}&key=${this.apiKey}&hours=24`,
+        `${this.api}lat=${lat}&lon=${lon}&units=metric&exclude=minutely,daily,current&appid=${this.apiKey}`,
       ).then((res) => res.json());
-      const dataObj = data.data;
-      this.displayResults(dataObj);
+      this.displayResults(data);
     } catch (err) {
       console.log(err);
     }
   }
 
-  async getWeatherByHourCityName(cityName) {
+  async getWeatherByHourCityName({ lat, lon }) {
     try {
       const dataByCity = await fetch(
-        `${this.api}city=${cityName}&key=${this.apiKey}&hours=24`,
+        `${this.api}lat=${lat}&lon=${lon}&units=metric&exclude=minutely,daily,current&appid=${this.apiKey}`,
       ).then((res) => res.json());
-      const dataObjByCity = dataByCity.data;
-      this.displayResults(dataObjByCity);
+      this.displayResults(dataByCity);
     } catch (err) {
       console.log(err);
     }
@@ -65,10 +63,10 @@ export default class WeatherByHour {
     }
   }
 
-  displayResults(dataObj) {
+  displayResults({ hourly }) {
     if (document.querySelectorAll('.hour-list__view').length <= 7) {
-      for (let i = 0; i < dataObj.length / 3; i++) {
-        this.addStructure(dataObj);
+      for (let i = 0; i < hourly.length / 3; i++) {
+        this.addStructure(hourly);
       }
     }
 
@@ -77,16 +75,16 @@ export default class WeatherByHour {
     this.tempAll = document.querySelectorAll(
       '.hour-list__temperature',
     );
-    dataObj.forEach(({ timestamp_local, temp, weather }, index) => {
-      this.timeAll[index].textContent = timestamp_local.slice(
-        timestamp_local.indexOf('T') + 1,
-        timestamp_local.length - 3,
-      );
+    hourly.forEach(({ dt, temp, weather }, index) => {
+      this.dateFromApi = new Date(dt * 1000);
+      this.timeAll[
+        index
+      ].textContent = `${this.dateFromApi.getHours()}:${this.dateFromApi.getMinutes()}${this.dateFromApi.getSeconds()}`;
       this.imgAll[index].setAttribute(
         'src',
-        `./images/${weather.icon}.png`,
+        `http://openweathermap.org/img/wn/${weather[0].icon}@2x.png`,
       );
-      this.tempAll[index].textContent = `${temp}°`;
+      this.tempAll[index].textContent = `${Math.floor(temp)}°`;
     });
   }
 }

@@ -1,9 +1,9 @@
-import WeatherByHour from './WeatherByHour';
+// import WeatherByHour from './WeatherByHour';
 
 export default class TodayWeather {
   constructor() {
-    this.url = 'https://api.weatherbit.io/v2.0/current?';
-    this.apiKey = '823bb590e7d943b7af67eb1635a03f0f';
+    this.url = 'https://api.openweathermap.org/data/2.5/onecall?';
+    this.apiKey = 'cd885cd68629b84dd290fe69cb42faed';
 
     this.cityName = document.querySelector('.location__name');
     this.date = document.querySelector('.weather__date');
@@ -31,73 +31,48 @@ export default class TodayWeather {
   async getCurrentWeather(lat, lon) {
     try {
       const data = await fetch(
-        `${this.url}lat=${lat}&lon=${lon}&key=${this.apiKey}`,
+        `${this.url}lat=${lat}&lon=${lon}&units=metric&exclude=minutely,daily,hourly&appid=${this.apiKey}`,
       ).then((res) => res.json());
-      const dataObj = await {
-        city: data.data[0].city_name,
-        temp: data.data[0].temp,
-        dateTime: data.data[0].datetime,
-        uv: data.data[0].uv,
-        sunrise: data.data[0].sunrise,
-        sunset: data.data[0].sunset,
-        humidity: data.data[0].rh,
-        icon: data.data[0].weather.icon,
-        iconDesc: data.data[0].weather.description,
-      };
-      this.displayData(dataObj);
+      const cityName = await fetch(
+        `https://us1.locationiq.com/v1/reverse.php?key=pk.4fc367327b0060ccaa01e2788c9b28f7&lat=${lat}&lon=${lon}&format=json`,
+      ).then((res) => res.json());
+      this.displayData(data.current, cityName.address);
     } catch (err) {
-      alert('No Data');
+      console.log(err);
     }
   }
 
-  async getCurrentWeatherByCityName(cityName) {
+  async getCurrentWeatherByCityName({ lat, lon }, cityName) {
     try {
       const dataByCity = await fetch(
-        `${this.url}city=${cityName}&key=${this.apiKey}`,
+        `${this.url}lat=${lat}&lon=${lon}&units=metric&exclude=minutely,daily,hourly&appid=${this.apiKey}`,
       ).then((res) => res.json());
-      const dataByCityObj = await {
-        city: dataByCity.data[0].city_name,
-        temp: dataByCity.data[0].temp,
-        dateTime: dataByCity.data[0].datetime,
-        uv: dataByCity.data[0].uv,
-        sunrise: dataByCity.data[0].sunrise,
-        sunset: dataByCity.data[0].sunset,
-        humidity: dataByCity.data[0].rh,
-        icon: dataByCity.data[0].weather.icon,
-        iconDesc: dataByCity.data[0].weather.description,
-      };
-      this.displayData(dataByCityObj);
+      this.displayData(dataByCity.current, cityName);
     } catch (err) {
       alert('No Data');
     }
   }
 
-  displayData(dataObj) {
-    this.cityName.textContent = dataObj.city;
-    this.date.textContent = dataObj.dateTime.slice(
-      0,
-      dataObj.dateTime.indexOf(':'),
-    );
-    this.temperature.textContent = dataObj.temp;
-    this.weatherInfo.textContent = dataObj.iconDesc;
-    this.uv.textContent = Math.floor(dataObj.uv);
-    this.sunrise.textContent = dataObj.sunrise;
-    this.sunset.textContent = dataObj.sunset;
-    this.humidity.textContent = Math.floor(dataObj.humidity);
+  displayData(
+    { humidity, dt, sunrise, sunset, uvi, temp, weather },
+    cityName,
+  ) {
+    this.cityName.textContent =
+      cityName.city || cityName.village || cityName;
+    this.dateFromApi = new Date(dt * 1000);
+    this.date.textContent = `${this.dateFromApi.getDate()}.${this.dateFromApi.getMonth()}.${this.dateFromApi.getFullYear()}`;
+    this.temperature.textContent = Math.floor(temp);
+    this.weatherInfo.textContent = weather[0].description;
+    this.uv.textContent = uvi;
+    this.sunriseDate = new Date(sunrise * 1000);
+    this.sunsetDate = new Date(sunset * 1000);
+    this.sunrise.textContent = `${this.sunriseDate.getHours()}:${this.sunriseDate.getMinutes()}`;
+    this.sunset.textContent = `${this.sunsetDate.getHours()}:${this.sunsetDate.getMinutes()}`;
+    this.humidity.textContent = humidity;
     this.temperatureIcon.setAttribute(
       'src',
-      `./images/${dataObj.icon}.png`,
+      `http://openweathermap.org/img/wn/${weather[0].icon}@2x.png`,
     );
-    this.temperatureIcon.setAttribute('alt', dataObj.iconDesc);
-  }
-
-  render() {
-    this.form.addEventListener('submit', (e) => {
-      e.preventDefault();
-      this.getCurrentWeatherByCityName(this.formCityName.value);
-      const weatherByHour = new WeatherByHour();
-      weatherByHour.getWeatherByHourCityName(this.formCityName.value);
-      this.formCityName.value = '';
-    });
+    this.temperatureIcon.setAttribute('alt', weather[0].description);
   }
 }

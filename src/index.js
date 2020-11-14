@@ -3,7 +3,7 @@ import 'regenerator-runtime/runtime';
 
 import './styles/index.scss';
 
-import TodayWeather from './js/TodayWeather';
+// import TodayWeather from './js/TodayWeather';
 
 import Slider from './js/Slider';
 
@@ -13,7 +13,7 @@ import './js/WeatherByHour';
 
 import GetCoordinates from './js/GetCoordinates';
 
-const todayWeather = new TodayWeather();
+// const todayWeather = new TodayWeather();
 
 // const weatherByHour = new WeatherByHour();
 
@@ -23,8 +23,9 @@ const slider = new Slider();
 
 const nav = new Navigation();
 
+// getCoordinates.getCoordinatesByCityName();
 getCoordinates.getCoordinates();
-todayWeather.render();
+getCoordinates.render();
 
 nav.changeRing();
 
