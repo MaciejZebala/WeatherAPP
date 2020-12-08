@@ -1,5 +1,3 @@
-// import WeatherByHour from './WeatherByHour';
-
 export default class TodayWeather {
   constructor() {
     this.url = 'https://api.openweathermap.org/data/2.5/onecall?';
@@ -26,9 +24,12 @@ export default class TodayWeather {
     this.formCityName = document.querySelector('.form__city');
     this.formBtn = document.querySelector('.form__btn');
     this.form = document.querySelector('.form');
+
+    this.spinner = document.querySelector('.spinner');
   }
 
   async getCurrentWeather(lat, lon) {
+    this.spinner.classList.add('spinner--visible');
     try {
       const data = await fetch(
         `${this.url}lat=${lat}&lon=${lon}&units=metric&exclude=minutely,daily,hourly&appid=${this.apiKey}`,
@@ -43,6 +44,7 @@ export default class TodayWeather {
   }
 
   async getCurrentWeatherByCityName({ lat, lon }, cityName) {
+    this.spinner.classList.add('spinner--visible');
     try {
       const dataByCity = await fetch(
         `${this.url}lat=${lat}&lon=${lon}&units=metric&exclude=minutely,daily,hourly&appid=${this.apiKey}`,
@@ -57,6 +59,7 @@ export default class TodayWeather {
     { humidity, dt, sunrise, sunset, uvi, temp, weather },
     cityName,
   ) {
+    this.spinner.classList.remove('spinner--visible');
     this.cityName.textContent =
       cityName.city || cityName.village || cityName;
     this.dateFromApi = new Date(dt * 1000);

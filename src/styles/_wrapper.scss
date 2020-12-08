@@ -1,6 +1,7 @@
 .app-wrapper{
     display: flex;
     flex-direction: column;
+    justify-content: space-around;
     width: 375px;
     height: 812px;
     background-image: linear-gradient(to top, #48c6ef 0%, #6f86d6 100%);

@@ -1,4 +1,3 @@
-// import { Loader } from 'google-maps';
 import TodayWeather from './TodayWeather';
 import WeatherByHour from './WeatherByHour';
 

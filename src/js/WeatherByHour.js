@@ -11,9 +11,12 @@ export default class WeatherByHour {
 
     this.form = document.querySelector('.form');
     this.formCityName = document.querySelector('.form__city');
+
+    this.spinner = document.querySelector('.spinner');
   }
 
   async getWeatherByHour(lat, lon) {
+    this.spinner.classList.add('spinner--visible');
     try {
       const data = await fetch(
         `${this.api}lat=${lat}&lon=${lon}&units=metric&exclude=minutely,daily,current&appid=${this.apiKey}`,
@@ -25,6 +28,7 @@ export default class WeatherByHour {
   }
 
   async getWeatherByHourCityName({ lat, lon }) {
+    this.spinner.classList.add('spinner--visible');
     try {
       const dataByCity = await fetch(
         `${this.api}lat=${lat}&lon=${lon}&units=metric&exclude=minutely,daily,current&appid=${this.apiKey}`,
@@ -64,6 +68,7 @@ export default class WeatherByHour {
   }
 
   displayResults({ hourly }) {
+    this.spinner.classList.remove('spinner--visible');
     if (document.querySelectorAll('.hour-list__view').length <= 7) {
       for (let i = 0; i < hourly.length / 3; i++) {
         this.addStructure(hourly);
