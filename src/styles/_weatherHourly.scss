@@ -63,6 +63,8 @@
     }
     &__weather-info{
         display: flex;
+        display: -webkit-box;
+        display: -webkit-flex;
         align-items: center;
         justify-content: center;
         width: 40px;

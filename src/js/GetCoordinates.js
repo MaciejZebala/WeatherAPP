@@ -38,9 +38,10 @@ export default class GetCoordinates {
         this.todayWeather.getCurrentWeather(this.lat, this.lon);
         this.weatherByHour.getWeatherByHour(this.lat, this.lon);
       });
-    } else {
-      alert('No Data');
+    } else if (!this.geo) {
+      // alert('No Data');
     }
+    // this.spinner.classList.remove('spinner--visible');
   }
 
   render() {
