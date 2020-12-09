@@ -7,6 +7,8 @@ export default class GetCoordinates {
 
     this.todayWeather = new TodayWeather();
     this.weatherByHour = new WeatherByHour();
+
+    this.spinner = document.querySelector('.spinner');
   }
 
   async getCoordinatesByCityName(cityName) {
@@ -27,11 +29,12 @@ export default class GetCoordinates {
   }
 
   async getCoordinates() {
+    this.spinner.classList.add('spinner--visible');
     if (this.geo) {
       this.geo.getCurrentPosition((location) => {
         this.lat = location.coords.latitude;
         this.lon = location.coords.longitude;
-
+        this.spinner.classList.remove('spinner--visible');
         this.todayWeather.getCurrentWeather(this.lat, this.lon);
         this.weatherByHour.getWeatherByHour(this.lat, this.lon);
       });
